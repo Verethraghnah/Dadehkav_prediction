@@ -27,6 +27,16 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import neuralprophet
 from PIL import Image
+from fbprophet import Prophet
+from fbprophet.diagnostics import performance_metrics
+from fbprophet.diagnostics import cross_validation
+from fbprophet.plot import plot_cross_validation_metric
+import base64
+from fbprophet.plot import add_changepoints_to_plot
+from fbprophet.plot import plot_plotly
+import plotly.offline as py
+from fbprophet.plot import add_changepoints_to_plot
+from fbprophet.plot import plot_components_plotly
 image = Image.open('banner.jpg')
 st.image(image, caption='Dadehkav Stock Prediction App')
 st.title('Stock Prediction App')
