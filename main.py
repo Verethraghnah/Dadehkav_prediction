@@ -119,7 +119,7 @@ if sidebar_function == "Neural Networks":
 
 else:
     st.write("running the code for fbprophet..."
-             "itmay take a while ")
+             "IT MAY TAKE A WHILE")
     m = Prophet(seasonality_mode='multiplicative', seasonality_prior_scale=5)
     m.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     m.add_country_holidays(country_name='US')
