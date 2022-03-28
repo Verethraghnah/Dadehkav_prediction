@@ -93,11 +93,10 @@ df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 
 if sidebar_function == "Neural Networks":
     st.write("running the code for Neural Networks..."
-             "itmay take a while ")
+             "it may take a while ")
     model = neuralprophet.NeuralProphet(
-    growth="linear",  # Determine trend types: 'linear', 'discontinuous', 'off'
-    changepoints=None, # list of dates that may include change points (None -> automatic )
-    n_changepoints=7,
+    growth="linear", 
+    n_changepoints=10,
     changepoints_range=0.8,
     trend_reg=0,
     trend_reg_threshold=False,
@@ -105,22 +104,11 @@ if sidebar_function == "Neural Networks":
     weekly_seasonality="auto",
     daily_seasonality="auto",
     seasonality_mode="multiplicative",
-    seasonality_reg=0,
-    n_forecasts=60,
-    #n_lags=50,
-    #ar_reg= 1,
-    num_hidden_layers=10,
-    d_hidden=3,     # Dimension of hidden layers of AR-Net
-    #ar_sparsity=None,  # Sparcity in the AR coefficients
-    #learning_rate=None,
     epochs=200,
     loss_func="Huber",
-    normalize="auto",  # Type of normalization ('minmax', 'standardize', 'soft', 'off')
+    normalize="auto",
     impute_missing=True,
-    #log_level=None, # Determines the logging level of the logger object
-    batch_size=64
-    )
-    m.add_country_holidays(country_name='US')
+    batch_size=64)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     metrics = model.fit(df_train, freq='D')
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
