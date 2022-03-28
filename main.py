@@ -94,16 +94,17 @@ df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 if sidebar_function == "Neural Networks":
     st.write("running the code for Neural Networks..."
              "itmay take a while ")
-    model = neuralprophet.NeuralProphet(seasonality_mode="multiplicative",n_forecasts=1,
-    #changepoints_range=0.95,
-    #n_changepoints=18,
-    #trend_reg=1,
-    weekly_seasonality='auto',
-    yearly_seasonality='auto',
-    daily_seasonality=False,
-    epochs=300,
-    #learning_rate=0.01,
+    model = neuralprophet.NeuralProphet(seasonality_mode="multiplicative",n_forecasts=60,
+    changepoints_range=0.95,
+    n_changepoints=18,
+    trend_reg=1,
+    #weekly_seasonality=5,
+    #yearly_seasonality=2,
+    #daily_seasonality=5,
+    epochs=500,
+    learning_rate=0.01,
     batch_size=64)
+model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     
     metrics = model.fit(df_train, freq='D')
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
@@ -120,9 +121,9 @@ if sidebar_function == "Neural Networks":
 else:
     st.write("running the code for fbprophet..."
              "itmay take a while ")
-    m = Prophet(seasonality_mode='multiplicative')
+    m = Prophet(seasonality_mode='multiplicative', seasonality_prior_scale=5)
     m.add_seasonality(name='monthly', period=30.5, fourier_order=5)
-    # m.add_country_holidays(country_name='US')
+    m.add_country_holidays(country_name='US')
     m.fit(df_train)
     fut = m.make_future_dataframe(periods=period)
     forecas = m.predict(fut)
