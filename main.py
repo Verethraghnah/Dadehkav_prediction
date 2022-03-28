@@ -94,9 +94,17 @@ df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 if sidebar_function == "Neural Networks":
     st.write("running the code for Neural Networks..."
              "itmay take a while ")
-    model = neuralprophet.NeuralProphet(seasonality_mode='multiplicative', daily_seasonality=False,
-                                        weekly_seasonality='auto', yearly_seasonality='auto', n_forecasts=60,
-                                        batch_size=32, epochs=100)
+    model = neuralprophet.NeuralProphet(seasonality_mode="multiplicative",n_forecasts=60,
+    changepoints_range=0.95,
+    n_changepoints=18,
+    trend_reg=1,
+    weekly_seasonality='auto',
+    yearly_seasonality='auto',
+    daily_seasonality=False,
+    epochs=300,
+    learning_rate=0.01,
+    batch_size=64)
+    
     metrics = model.fit(df_train, freq='D')
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
     forecast = model.predict(future)
@@ -119,8 +127,8 @@ else:
     fut = m.make_future_dataframe(periods=period)
     forecas = m.predict(fut)
     st.write("Forecast Results")
-    figf = m.plot(forecas)
+    figf = plot_plotly(m, forecas, trend=True)
     st.plotly_chart(figf)
     st.write("Forecast components")
     figff = plot_components_plotly(m, forecas)
-    st.write(figff)
+    st.plotly_chart(figff)
