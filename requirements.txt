@@ -6,7 +6,7 @@ pandas-datareader==0.9.0
 plotly==4.14.3
 scipy==1.5.2
 streamlit==0.82.0
+neuralprophet==0.3.2
 pystan==2.19.1.1
 plotly==4.14.3
 fbprophet==0.7.1
-neuralprophet==0.3.2
