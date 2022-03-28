@@ -127,7 +127,7 @@ else:
     fut = m.make_future_dataframe(periods=period)
     forecas = m.predict(fut)
     st.write("Forecast Results")
-    figf = plot_plotly(m, forecas, trend=True)
+    figf = plot_plotly(m, forecas, trend=True, figsize=(700, 600))
     st.plotly_chart(figf)
     st.write("Forecast components")
     figff = plot_components_plotly(m, forecas, figsize=(700, 175))
