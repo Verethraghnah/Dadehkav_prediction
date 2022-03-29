@@ -1,5 +1,17 @@
 # pip install streamlit fbprophet yfinance plotly
 import streamlit as st
+st.write("DB username:", st.secrets["db_username"])
+st.write("DB password:", st.secrets["db_password"])
+st.write("My cool secrets:", st.secrets["my_cool_secrets"]["things_i_like"])
+
+import os
+
+st.write(
+    "Has environment variables been set:",
+    os.environ["db_username"] == st.secrets["db_username"],
+)
+
+
 from datetime import date
 import requests
 import numpy as np
@@ -37,6 +49,8 @@ from fbprophet.plot import plot_plotly
 import plotly.offline as py
 from fbprophet.plot import add_changepoints_to_plot
 from fbprophet.plot import plot_components_plotly
+
+
 image = Image.open('banner.jpg')
 st.image(image, caption='Dadehkav Stock Prediction App')
 st.title('Stock Prediction App')
