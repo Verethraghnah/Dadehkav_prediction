@@ -96,8 +96,7 @@ df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 if sidebar_function == "Neural Networks":
     st.write("running the code for Neural Networks..."
              "it may take a while ")
-    model = neuralprophet.NeuralProphet(growth="discontinuous",
-    growth="linear", 
+    model = neuralprophet.NeuralProphet(growth="discontinuous", 
     #n_changepoints=10,
     #changepoints_range=0.8,
     #trend_reg=0,
