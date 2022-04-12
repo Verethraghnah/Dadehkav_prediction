@@ -109,8 +109,9 @@ if sidebar_function == "Neural Networks":
     loss_func="Huber",
     normalize="soft",
     impute_missing=True,
-    num_hidden_layers=3,                                    
-    batch_size=54)
+    num_hidden_layers=1,
+    d_hidden=2,                                    
+    batch_size=42)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     metrics = model.fit(df_train, freq='D', progress= 'bar')
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
