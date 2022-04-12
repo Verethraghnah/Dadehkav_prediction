@@ -113,7 +113,11 @@ if sidebar_function == "Neural Networks":
     batch_size=54)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     metrics = model.fit(df_train, freq='D', progress= 'bar')
-    st.write(model.fit(df_train, freq='D', progress= 'bar'))
+    my_bar = st.progress(0)
+
+for percent_complete in range(epochs):
+     time.sleep(0.1)
+     my_bar.progress(percent_complete + 1)
     st.write(metrics)
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
     forecast = model.predict(future)
