@@ -112,7 +112,7 @@ if sidebar_function == "Neural Networks":
     num_hidden_layers=5,                                    
     batch_size=64)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
-    st.write(metrics = model.fit(df_train, freq='D'))
+    metrics = model.fit(df_train, freq='D')
     st.write(metrics)
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
     forecast = model.predict(future)
