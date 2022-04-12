@@ -96,7 +96,7 @@ df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 if sidebar_function == "Neural Networks":
     st.write("running the code for Neural Networks..."
              "it may take a while ")
-    model = neuralprophet.NeuralProphet(growth="discontinuous", 
+    model = neuralprophet.NeuralProphet(growth="linear", 
     #n_changepoints=10,
     #changepoints_range=0.8,
     #trend_reg=0,
@@ -105,11 +105,11 @@ if sidebar_function == "Neural Networks":
     weekly_seasonality="auto",
     daily_seasonality="auto",
     seasonality_mode="multiplicative",
-    epochs=150,
+    epochs=100,
     loss_func="Huber",
-    normalize="minmax",
+    normalize="soft",
     impute_missing=True,
-    num_hidden_layers=5,                                    
+    num_hidden_layers=3,                                    
     batch_size=64)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     metrics = model.fit(df_train, freq='D')
