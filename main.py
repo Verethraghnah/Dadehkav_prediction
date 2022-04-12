@@ -115,7 +115,7 @@ if sidebar_function == "Neural Networks":
     metrics = model.fit(df_train, freq='D', progress= 'bar')
     
     my_bar = st.progress(0)
-     for percent_complete in range(epochs):
+    for percent_complete in range(epochs):
          time.sleep(0.1)
          my_bar.progress(percent_complete + 1)
     
