@@ -67,7 +67,7 @@ crypotocurrencies = (
 
 selected_stock = st.selectbox('Select dataset for prediction', crypotocurrencies)
 
-n_years = st.slider('Weeks of prediction:', 1, 4)
+n_years = st.slider('Weeks of prediction:', 1, 8)
 period = n_years * 7
 
 
@@ -96,23 +96,25 @@ df_train = df_train.rename(columns={"Date": "ds", "Close": "y"})
 if sidebar_function == "Neural Networks":
     st.write("running the code for Neural Networks..."
              "it may take a while ")
-    model = neuralprophet.NeuralProphet(
+    model = neuralprophet.NeuralProphet(growth="discontinuous",
     growth="linear", 
-    n_changepoints=10,
-    changepoints_range=0.8,
-    trend_reg=0,
-    trend_reg_threshold=False,
+    #n_changepoints=10,
+    #changepoints_range=0.8,
+    #trend_reg=0,
+    #trend_reg_threshold=False,
     yearly_seasonality="auto",
     weekly_seasonality="auto",
     daily_seasonality="auto",
     seasonality_mode="multiplicative",
-    epochs=200,
+    epochs=300,
     loss_func="Huber",
-    normalize="auto",
+    normalize="minmax",
     impute_missing=True,
-    batch_size=64)
+    num_hidden_layers=5,                                    
+    batch_size=32)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
-    metrics = model.fit(df_train, freq='D')
+    st.write(metrics = model.fit(df_train, freq='D'))
+    st.write(metrics)
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
     forecast = model.predict(future)
     st.write("Forecast Results")
