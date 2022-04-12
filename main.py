@@ -105,12 +105,12 @@ if sidebar_function == "Neural Networks":
     weekly_seasonality="auto",
     daily_seasonality="auto",
     seasonality_mode="multiplicative",
-    epochs=300,
+    epochs=150,
     loss_func="Huber",
     normalize="minmax",
     impute_missing=True,
     num_hidden_layers=5,                                    
-    batch_size=32)
+    batch_size=64)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     st.write(metrics = model.fit(df_train, freq='D'))
     st.write(metrics)
