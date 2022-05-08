@@ -107,13 +107,13 @@ if sidebar_function == "Neural Networks":
     seasonality_mode="multiplicative",
     epochs=150,
     loss_func="Huber",
-    normalize="minmax",
+    normalize="standardize",
     impute_missing=True,
-    num_hidden_layers=3,
-    d_hidden=1,                                    
-    batch_size=36)
+    num_hidden_layers=2,
+    d_hidden=2,                                    
+    batch_size=32)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
-    metrics = model.fit(df_train, freq='D', progress= 'bar')
+    metrics = model.fit(df_train, freq='auto', progress= 'bar')
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
     forecast = model.predict(future)
     st.write("Forecast Results")
@@ -124,7 +124,8 @@ if sidebar_function == "Neural Networks":
     st.write(fig_comp)
     fig_param = model.plot_parameters()
     st.pyplot(fig_param)
-
+    r = px.line(forecast, x= 'ds', y= ['y','yhat1'])
+    st.write(r)
 else:
     st.write("running the code for fbprophet..."
              "IT MAY TAKE A WHILE")
