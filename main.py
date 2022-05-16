@@ -67,7 +67,7 @@ crypotocurrencies = (
 
 selected_stock = st.selectbox('Select dataset for prediction', crypotocurrencies)
 
-n_years = st.slider('Weeks of prediction:', 1, 8)
+n_years = st.slider('Weeks of prediction:', 1, 50)
 period = n_years * 7
 
 
@@ -105,13 +105,13 @@ if sidebar_function == "Neural Networks":
     weekly_seasonality="auto",
     daily_seasonality=False,
     seasonality_mode="multiplicative",
-    epochs=150,
+    epochs=100,
     loss_func="Huber",
     normalize="standardize",
     impute_missing=True,
-    num_hidden_layers=2,
-    d_hidden=2,                                    
-    batch_size=32)
+    num_hidden_layers=5,
+    d_hidden=5,                                    
+    batch_size=64)
     model.add_seasonality(name='monthly', period=30.5, fourier_order=5)
     metrics = model.fit(df_train, freq='auto', progress= 'bar')
     future = model.make_future_dataframe(df_train, periods=period, n_historic_predictions=len(df_train))
@@ -141,3 +141,5 @@ else:
     st.write("Forecast components")
     figff = plot_components_plotly(m, forecas, figsize=(700, 175))
     st.plotly_chart(figff)
+    p = px.line(forecas, x= 'ds', y= ['y','yhat1'])
+    st.write(p)
